@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppRegistry, StyleSheet, Text, View} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, NativeModules} from 'react-native';
 import BatchedBridge from "react-native/Libraries/BatchedBridge/BatchedBridge";
 
 class HelloWorld extends React.Component {
@@ -27,14 +27,17 @@ class HelloWorld extends React.Component {
         margin: 10
       }
     });
-    
-  const exposedToJava =  {    
-    nameOfJsMethod(message,numbre) {
-      console.log(`RANZZ ${message} ${numbre}`);
+
+
+
+const {CallbackFromJS} = NativeModules;
+
+const exposedToJava =  {    
+    callFromNative(message,numbre) {
+      console.log(`${message} ${numbre}`);
+      CallbackFromJS.callbackAns(`the call back made for javasctipt`)
     }
 };
-
-
 
 BatchedBridge.registerCallableModule("JavaScriptVisibleToJava", exposedToJava);
 

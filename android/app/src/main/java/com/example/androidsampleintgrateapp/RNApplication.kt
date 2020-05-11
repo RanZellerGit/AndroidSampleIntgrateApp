@@ -25,7 +25,7 @@ class RNApplication : Application() , ReactApplication {
         }
 
         override fun getPackages(): List<ReactPackage> {
-            return listOf(MainReactPackage())
+            return listOf(MainReactPackage(), MyPackage())
         }
 
         override fun getJSMainModuleName(): String {
