@@ -1,5 +1,6 @@
 import React from 'react';
 import {AppRegistry, StyleSheet, Text, View} from 'react-native';
+import BatchedBridge from "react-native/Libraries/BatchedBridge/BatchedBridge";
 
 class HelloWorld extends React.Component {
     render() {
@@ -27,5 +28,14 @@ class HelloWorld extends React.Component {
       }
     });
     
+  const exposedToJava =  {    
+    nameOfJsMethod(message,numbre) {
+      console.log(`RANZZ ${message} ${numbre}`);
+    }
+};
+
+
+
+BatchedBridge.registerCallableModule("JavaScriptVisibleToJava", exposedToJava);
 
 AppRegistry.registerComponent('MyAndroidReactNativeApp', () => HelloWorld);

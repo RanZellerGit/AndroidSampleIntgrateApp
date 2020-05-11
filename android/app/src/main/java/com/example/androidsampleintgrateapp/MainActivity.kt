@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import com.facebook.react.bridge.WritableNativeArray
 import com.facebook.soloader.SoLoader
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        SoLoader.init(this,false)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(this)) {
                 val intent = Intent(
@@ -28,8 +28,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         button.setOnClickListener{
-            println("Start React Clicked")
-            startActivity(Intent(this,MyReactActivity::class.java))
+            val reactContext = RNApplication.app.reactNativeHost.reactInstanceManager.currentReactContext
+
+            val catalystInstance = reactContext!!.catalystInstance
+            val params = WritableNativeArray()
+            params.pushString("Message to show using nameOfJsMethod")
+            params.pushInt(5)
+            catalystInstance.callFunction("JavaScriptVisibleToJava", "nameOfJsMethod", params)
         }
     }
 
