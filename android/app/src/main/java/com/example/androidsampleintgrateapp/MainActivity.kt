@@ -29,12 +29,11 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener{
             val reactContext = RNApplication.app.reactNativeHost.reactInstanceManager.currentReactContext
-
             val catalystInstance = reactContext!!.catalystInstance
             val params = WritableNativeArray()
-            params.pushString("Message to show using nameOfJsMethod")
+            params.pushString("this function inject in the native code")
             params.pushInt(5)
-            catalystInstance.callFunction("JavaScriptVisibleToJava", "nameOfJsMethod", params)
+            catalystInstance.callFunction("JavaScriptVisibleToJava", "callFromNative", params)
         }
     }
 
